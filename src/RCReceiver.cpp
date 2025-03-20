@@ -82,31 +82,16 @@ void RCReceiver::setChannelRange(uint8_t channel, uint32_t inMin, uint32_t inMax
 }
 
 // Function to map the PWM value of a specific channel to a user-defined range
-int32_t RCReceiver::mappedChannelValue(uint8_t channel) const {
+int32_t RCReceiver::getMappedChannelValue(uint8_t channel) const {
     if (channel < MAX_CHANNELS && channelEnabled[channel]) {
         uint32_t value = getChannelValue(channel);
-        int32_t mappedValue = static_cast<int32_t>((value - inputMin[channel]) * (outputMax[channel] - outputMin[channel]) / (inputMax[channel] - inputMin[channel]) + outputMin[channel]);
-        // Cap the mapped value within the defined range
-        if (mappedValue < outputMin[channel]) {
-            mappedValue = outputMin[channel];
-        } else if (mappedValue > outputMax[channel]) {
-            mappedValue = outputMax[channel];
+        if (value < inputMin[channel]) {
+            value = inputMin[channel];
+        } else if (value > inputMax[channel]) {
+            value = inputMax[channel];
         }
+        int32_t mappedValue = static_cast<int32_t>((value - inputMin[channel]) * (outputMax[channel] - outputMin[channel]) / (inputMax[channel] - inputMin[channel]) + outputMin[channel]);
         return mappedValue;
-    }
-    return 0;
-}
-
-// Function to filter the PWM value of a specific channel to a user-defined range
-int32_t RCReceiver::filteredChannelValue(uint8_t channel) const {
-    if (channel < MAX_CHANNELS && channelEnabled[channel]) {
-        uint32_t value = getChannelValue(channel);
-        int32_t mappedValue = static_cast<int32_t>((value - inputMin[channel]) * (outputMax[channel] - outputMin[channel]) / (inputMax[channel] - inputMin[channel]) + outputMin[channel]);
-        // Check if the mapped value is within the defined range
-        if (mappedValue >= outputMin[channel] && mappedValue <= outputMax[channel]) {
-            lastValidValue[channel] = mappedValue;
-        }
-        return lastValidValue[channel];
     }
     return 0;
 }

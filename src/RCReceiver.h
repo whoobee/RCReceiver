@@ -37,12 +37,7 @@ public:
     // Map the PWM value of a specific channel to a user-defined range
     // @param channel: The channel number (0 to MAX_CHANNELS-1)
     // @return The mapped value
-    int32_t mappedChannelValue(uint8_t channel) const;
-
-    // Filter the PWM value of a specific channel to a user-defined range
-    // @param channel: The channel number (0 to MAX_CHANNELS-1)
-    // @return The filtered value
-    int32_t filteredChannelValue(uint8_t channel) const;
+    int32_t getMappedChannelValue(uint8_t channel) const;
 
 private:
     // Interrupt service routines for each channel

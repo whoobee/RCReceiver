@@ -39,9 +39,7 @@ void loop(void) {
         Serial.print(": ");
         Serial.print(receiver.getChannelValue(i));
         Serial.print(" us, Mapped: ");
-        Serial.print(receiver.mappedChannelValue(i));
-        Serial.print(", Filtered: ");
-        Serial.print(receiver.filteredChannelValue(i));
+        Serial.print(receiver.getMappedChannelValue(i));
         Serial.print(" ");
         if (i < 9U) {
             Serial.print(", ");
