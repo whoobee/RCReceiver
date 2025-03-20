@@ -1,0 +1,19 @@
+{
+    "name": "RCReceiver",
+    "version": "1.0.0",
+    "description": "A library to read PWM signals from a 4-channel RC receiver using input capture interrupts on a Teensy 4.1.",
+    "keywords": "PWM, RC, Teensy, Interrupts",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/whoobee/RCReceiver.git"
+    },
+    "authors": [
+      {
+        "name": "Mihai Hubalau",
+        "email": "hubalau@gmail.com",
+        "maintainer": true
+      }
+    ],
+    "frameworks": "arduino",
+    "platforms": "teensy"
+  }
