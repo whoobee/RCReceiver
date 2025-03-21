@@ -1,21 +1,25 @@
 #include "RCReceiver.h"
 
-// Define channel pins (adjust as needed)
-static const uint8_t channelPins[MAX_CHANNELS] = {0U, 1U, 2U, 3U, 4U, 5U, 6U, 7U, 8U, 9U};
-
 // Initialize arrays to store PWM values and last capture times
 volatile uint32_t RCReceiver::pwmValues[MAX_CHANNELS] = {0U};
 volatile uint32_t RCReceiver::lastCapture[MAX_CHANNELS] = {0U};
+uint8_t RCReceiver::channelPins[MAX_CHANNELS] = {0U};
 
-// Constructor to initialize the RC receiver with a specific number of channels
-RCReceiver::RCReceiver(uint8_t numChannels) : numChannels(numChannels) {
-    for (uint8_t i = 0U; i < MAX_CHANNELS; ++i) {
-        channelEnabled[i] = false;
-        inputMin[i] = 1000U; // Default minimum input value
-        inputMax[i] = 2000U; // Default maximum input value
-        outputMin[i] = 0;    // Default minimum output value
-        outputMax[i] = 100;  // Default maximum output value
-        lastValidValue[i] = 0; // Initialize last valid value
+// Constructor to initialize the RC receiver with a specific number of channels and pin configuration
+RCReceiver::RCReceiver(std::initializer_list<uint8_t> pins) {
+    numChannels = pins.size();
+    uint8_t i = 0;
+    for (uint8_t pin : pins) {
+        if (i < MAX_CHANNELS) {
+            channelPins[i] = pin;
+            channelEnabled[i] = false;
+            inputMin[i] = 1000U; // Default minimum input value
+            inputMax[i] = 2000U; // Default maximum input value
+            outputMin[i] = 0;    // Default minimum output value
+            outputMax[i] = 100;  // Default maximum output value
+            lastValidValue[i] = 0; // Initialize last valid value
+            i++;
+        }
     }
 }
 

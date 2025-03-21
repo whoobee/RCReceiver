@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <RCReceiver.h>
 
-// Create an RCReceiver object with 10 channels
-RCReceiver receiver(10U);
+// Create an RCReceiver object with 10 channels (pins 0-9)
+RCReceiver receiver({0, 1, 2, 3, 4, 5, 6, 7, 8, 9});
 
 void setup(void) {
     Serial.begin(115200U);
